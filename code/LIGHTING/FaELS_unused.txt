@@ -1,0 +1,345 @@
+
+
+/turf/proc/faels_calculate_color()
+	var/color = null
+	#ifdef FaELS_DEBUG
+	faels_litness = 0
+	#else
+	var/faels_litness = 0
+	#endif
+	var/lux_white = 0 //total luminosity of white light sources, lux
+	var/lux_color = 0 //total luminosity of color light sources, lux
+	var/cur_hsv = hsv(0, 0, 255)
+	if (faels_lights)
+		while (faels_lights.Remove(null))
+			/* do nothing */ ;
+		if (faels_lights.len==0)
+			faels_lights = null
+	for (var/atom/light in faels_lights)
+		//if (isnull(light))
+		//	faels_lights-=light
+		//	continue
+		if (isnull(light.faels_hue))
+			lux_white += FaELS2LX(faels_lights[light])
+		else
+			var/lux_current = FaELS2LX(faels_lights[light]) //luminosity of current light source, squares
+			var/hue = light.faels_hue
+			lux_color += lux_current
+			var/amount = lux_color?(lux_current/lux_color):1
+			#ifdef FaELS_DEBUG
+			var/old_cur_hsv = cur_hsv
+			#endif
+			cur_hsv = BlendHSV(cur_hsv, hsv(hue, 255, 255), amount)
+			#ifdef FaELS_DEBUG
+			if (locate(/mob) in src)
+				world << "DEBUG: FaELS: hue=[hue], amount=[lux_current]/[lux_color]=[amount], cur_hsv=[old_cur_hsv] -> [cur_hsv]"
+			#endif
+	var/lux_total = lux_color+lux_white
+	faels_litness = lux_total?LX2FaELS(lux_total):0
+	faels_litness = max(min(faels_litness, FaELS_MAX_LUMINOSITY), 0)
+	var/amount = lux_total?(lux_color/lux_total):0
+	cur_hsv = ReadHSV(cur_hsv)
+	var/saturation
+	var/value
+	var/alpha
+	var/hue = cur_hsv[1]
+
+	switch(faels_litness)
+		if (0 to 6)
+			saturation = 255
+			value = round(amount*(faels_litness+1))*32
+			alpha = 256-(round(faels_litness*(1-0.5*amount))+1)*32
+		if (7 to FaELS_TRESHOLD)
+			if (!lux_color)
+				return // null //color = "none"
+			saturation = 255
+			value = 255
+			alpha = 256-(round((1-amount)*4)+4)*32
+		if (FaELS_TRESHOLD+1 to FaELS_TRESHOLD+1+5)
+			saturation = LX2FaELS(lux_color)*32
+			value = 255
+			alpha = ((faels_litness-(FaELS_TRESHOLD+1))+1)*32
+		else
+			saturation = round(amount*255)
+			value = 255
+			alpha = 7*32
+
+	color = HSVtoRGB(hsv(hue,saturation,value,alpha))
+
+	#ifdef FaELS_DEBUG
+	if (locate(/mob) in src)
+		world << "\b DEBUG: FaELS: hue=[hue], saturation=[saturation], value=[value]"
+	#endif
+
+	/*
+	switch(faels_litness)
+		if (0 to 6)
+			color = HSVtoRGB(hsv(cur_hsv[1],cur_hsv[3],cur_hsv[2],256-(faels_litness+1)*32))
+		if (7 to FaELS_TRESHOLD)
+			return // null //color = "none"
+		if (FaELS_TRESHOLD+1 to FaELS_TRESHOLD+1+5)
+			color = HSVtoRGB(hsv(cur_hsv[1],cur_hsv[3],cur_hsv[2],((faels_litness-(FaELS_TRESHOLD+1))+1)*32))
+		else
+			if (faels_litness<0) //shouldn't happen
+				color = rgb(0,0,0,7*32)
+			else
+				color = rgb(255,255,255,7*32)*/
+
+	return color
+
+
+
+
+
+/* ================= UNUSED RAYTRACING AND STUFF ================== */
+
+/*
+	for (var/turf/T2 in circle(T, ))
+		ray(T, T2, new_luminosity, old_luminosity)
+*/
+/*
+	var/x = T.x
+	var/y = T.y
+	var/R = max(new_luminosity, old_luminosity)
+	if (R>1)
+		var/k = round(R*0.7071) //cos(45)
+		for(var/i=0, i<k+1, ++i)
+			var/j = sqrt(R**2 - i**2)
+			ray(T, x+i, y+j, new_luminosity, old_luminosity)
+			ray(T, x-i, y+j, new_luminosity, old_luminosity)
+			ray(T, x+i, y-j, new_luminosity, old_luminosity)
+			ray(T, x-i, y-j, new_luminosity, old_luminosity)
+
+			ray(T, x+j, y+i, new_luminosity, old_luminosity)
+			ray(T, x-j, y+i, new_luminosity, old_luminosity)
+			ray(T, x+j, y-i, new_luminosity, old_luminosity)
+			ray(T, x-j, y-i, new_luminosity, old_luminosity)
+
+		ray(T, x+k, y+k, new_luminosity, old_luminosity)
+		ray(T, x-k, y+k, new_luminosity, old_luminosity)
+		ray(T, x+k, y-k, new_luminosity, old_luminosity)
+		ray(T, x-k, y-k, new_luminosity, old_luminosity)
+*/
+
+/*
+/datum/FaELS/proc/ray(turf/begin, end_x, end_y, var/new_luminosity, var/old_luminosity)
+	var/x = begin.x
+	var/y = begin.y
+	var/z = begin.z
+	var/l = max(abs(x-end_x), abs(y-end_y))
+	var/dx = (end_x - x)/l
+	var/dy = (end_y - y)/l
+
+
+	//var/turf/donut = locate(end_x+0.5,end_y+0.5,z)
+	//new/obj/item/weapon/reagent_containers/food/snacks/donut(donut)
+
+	for (var/i = 1 to l)
+		x+=dx
+		y+=dy
+		var/turf/T = locate(x+0.5, y+0.5, z)
+		if (isnull(T))
+			return
+		if (T.faels_iteration==iteration)
+			continue
+		T.faels_iteration=iteration
+		var/d = round(get_dist_euclidian(begin, T))
+		T.faels_litness += max(0, new_luminosity-d) - max(0, old_luminosity-d)
+		objs_to_update[T] = objs_to_update[T]|FaELS_OP_SETGRAPHICS
+		if (T.opacity)
+			return
+*/
+
+
+
+/proc/faels_get_affected_turfs( /* FUNCTIONALLY PURE */
+		var/turf/T,
+		var/steps_left as num,
+		/*OUT*/ var/list/turf/affected,
+	//	/*OUT*/ var/list/affected_lux
+	)
+	ASSERT(isturf(T))
+	ASSERT(steps_left>=0)
+	ASSERT(islist(affected))
+	//ASSERT(islist(affected_lux))
+	//world << "DEBUG: FaELS: /datum/FaELS/proc/get_affected_turfs([T], [v])"
+	var/list/turf/pending = list(T)
+	var/list/pending_lux = list(steps_left)
+	while(pending.len)
+		T = pending[pending.len]
+		steps_left = pending_lux[pending_lux.len]
+		pending.len--
+		pending_lux.len--
+		if (steps_left && !(T in affected))
+			affected+=T
+			//affected_lux+=steps_left
+		if (steps_left)
+			steps_left--
+			for (var/turf/T2 in orange(1, T))
+				if (T2.opacity)
+					continue
+				var/opaque = 0
+				for (var/atom/movable/A in T2)
+					if (T2.opacity)
+						opaque = 1
+						break
+				if (opaque)
+					continue
+				if ((T2 in affected) || (T2 in pending))
+					continue
+				pending+=T2
+				pending_lux+=steps_left
+	ASSERT(pending_lux.len==pending.len)
+	//ASSERT(affected_lux.len==affected.len)
+	return 1
+
+/*
+/datum/FaELS/proc/get_affected_turfs_lazy( /* FUNCTIONALLY PURE */
+		var/turf/T,
+		var/steps_left as num,
+		/*OUT*//* var/list/turf/affected,*/
+		/*OUT*//* var/list/affected_lux*/
+	)
+	ASSERT(isturf(T))
+	ASSERT(steps_left>=0)
+	//ASSERT(islist(affected))
+	//ASSERT(islist(affected_lux))
+	//world << "DEBUG: FaELS: /datum/FaELS/proc/get_affected_turfs([T], [v])"
+	//var/list/turf/pending = list(T)
+	//var/list/pending_lux = list(steps_left)
+	while(_pending_len/*pending.len*/)
+		T = _pending[_pending_len]
+		steps_left = _pending_lux[_pending_len]
+		//pending.len--
+		//pending_lux.len--
+		_pending_len--
+		if (steps_left>T.faels_litness && !(T in _affected))
+			_affected_len++
+			_affected[_affected_len]=T
+			_affected_lux[_affected_len]=steps_left
+		if (steps_left)
+			steps_left--
+			for (var/turf/T2 in orange(1, T))
+				if (T2.opacity)
+					continue
+				var/opaque = 0
+				for (var/atom/movable/A in T2)
+					if (T2.opacity)
+						opaque = 1
+						break
+				if (opaque)
+					continue
+				if (/*steps_left &&*/ steps_left<=T2.faels_litness) //NOTE: this line is not so lazy for debug purposes
+					continue
+				if ((T2 in _affected) || (T2 in _pending))
+					continue
+				_pending_len++
+				_pending[_pending_len]=T2
+				_pending_lux[_pending_len]=steps_left
+				//pending+=T2
+				//pending_lux+=steps_left
+	//ASSERT(pending_lux.len==pending.len)
+	//ASSERT(affected_lux.len==affected.len)
+	return 1
+
+/datum/FaELS/proc/get_cleaned_turfs( /* FUNCTIONALLY PURE */
+		var/turf/T,
+		var/steps_left as num,
+		/*OUT*/ var/list/turf/affected,
+		/*OUT*/ var/list/turf/adjanced, /* all transparent turs near new black area */
+		/*OUT*/ var/list/atom/lumenous, /* all lumenous atoms in area. May include T. */
+	)
+	ASSERT(isturf(T))
+	ASSERT(steps_left>=0)
+	ASSERT(islist(affected))
+	ASSERT(islist(adjanced))
+	ASSERT(islist(lumenous))
+	//world << "DEBUG: FaELS: /datum/FaELS/proc/get_cleaned_turfs([T], [v])"
+	var/list/turf/pending = list(T)
+	var/list/pending_lux = list(steps_left)
+	while(pending.len)
+		T = pending[pending.len]
+		steps_left = pending_lux[pending_lux.len]
+		pending.len--
+		pending_lux.len--
+		if (steps_left && !(T in affected))
+			affected+=T
+			if (T.luminosity && !(T in lumenous))
+				lumenous+=T
+			for (var/atom/A in T)
+				if (A.luminosity && !(A in lumenous))
+					lumenous+=A
+			//affected_lux+=steps_left
+		if (steps_left)
+			steps_left--
+			for (var/turf/T2 in orange(1, T))
+				if (T2.opacity)
+					continue
+				var/opaque = 0
+				for (var/atom/movable/A in T2)
+					if (T2.opacity)
+						opaque = 1
+						break
+				if (opaque)
+					continue
+				if ((T2 in affected) || (T2 in pending))
+					continue
+				pending+=T2
+				pending_lux+=steps_left
+		if (steps_left==0)
+			for (var/turf/T2 in orange(1, T))
+				if (T2.opacity)
+					continue
+				var/opaque = 0
+				for (var/atom/movable/A in T2)
+					if (T2.opacity)
+						opaque = 1
+						break
+				if (opaque)
+					continue
+				if ((T2 in affected) || (T2 in pending))
+					continue
+				adjanced+=T2
+	ASSERT(pending_lux.len==pending.len)
+	//ASSERT(affected_lux.len==affected.len)
+	return 1
+	*/
+/* ================= END OF UNUSED RAYTRACING AND STUFF ================== */
+
+
+/proc/circle(turf/center, R as num)
+	var/list/turf/mycircle = new
+	var/x = center.x
+	var/y = center.y
+	var/z = center.z
+	var/k = round(R*0.7071) //cos(45)
+	for(var/i=0, i<k+2, ++i)
+		var/j = round(sqrt(R**2 - i**2)+0.5)
+		var/turf/T
+		T = locate(x+i,y+j,z)
+		//world << "DEBUG: FaELS: [coords2text(center)] R=[R]: k=[k], i=[i], j=[j], T[coords2text(T)]=[T]"
+		if (!isnull(T)) mycircle|=T
+		T = locate(x-i,y+j,z)
+		if (!isnull(T)) mycircle|=T
+		T = locate(x+i,y-j,z)
+		if (!isnull(T)) mycircle|=T
+		T = locate(x-i,y-j,z)
+		if (!isnull(T)) mycircle|=T
+		T = locate(x+j,y+i,z)
+		if (!isnull(T)) mycircle|=T
+		T = locate(x-j,y+i,z)
+		if (!isnull(T)) mycircle|=T
+		T = locate(x+j,y-i,z)
+		if (!isnull(T)) mycircle|=T
+		T = locate(x-j,y-i,z)
+		if (!isnull(T)) mycircle|=T
+	//world << "DEBUG: FaELS: mycircle.len=[mycircle.len]"
+	return mycircle
+
+
+/mob/verb/faels_circle(var/R as num)
+	set name = "FaELS circle"
+	set category = "Debug"
+	for (var/turf/T in circle(get_turf(usr),R))
+		new/obj/item/weapon/reagent_containers/food/snacks/donut(T)
+

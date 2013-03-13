@@ -1,0 +1,629 @@
+================================================================================
+			Performance notes by Rastaf0.
+================================================================================
+
+                                               Performance in BYOND is a pain.
+
+
+
+During developement of FaELS I ran into many and many of performance issues.
+Initially I used to put tests and results in commentaries across FaELS.dm but it
+turned file to mess. Too many tests, too much strange behavior to describe.
+
+English is not my native language and while writing this lines I do not have
+accesss neither to a dictionary nor to the Internet. Therefore tons of typos,
+misspelling and grammar errors are coming. Excuse me for that. I'm trying my 
+best.
+
+This file will contain info about generic (i.e. not SS13-lighting-related)
+data structures and algorhytms in BYOND language. Other stuff stays in FaELS.dm.
+This file can be useful for every BYOND coder who needs to fast up their games,
+but my main goal is to assist Space Station 13 community, mostly /tg/station
+(Sup bros!).
+
+Sometimes different performance measurements were performed on different
+machines, but whithin each group of tests computer and environement were same.
+Seconds itself does not matter, they will be different on your hardware.
+Only relations and cave-ins are important.
+
+A "Testig method" section contains long source code listings I used to measure
+different approachs. You may skip it if you're not going to repeat/check/proove
+my investigements. Sometimes they may be unrepeatable without SS13+FaELS code.
+
+
+Contents
+========
+* Chapter 1: view() and range()
+* Chapter 2: function calls
+* Chapter 3: list operations
+* Chapter 4: static expressions
+* Chapter 5: bit operations and null
+* Chapter 6: Del()
+
+Chapter 1: view() and range()
+=============================
+
+view() and range() returns ALL atoms in certain territory. This leads to getting
+HUGE lists as return value. Hundreds of objects sometimes.
+The constructions like
+>>>"for(var/obj/shit in view())"
+are pretty common in BYOND
+games. Thats why BYOND does have an optimisation for that specific case. Do not
+store valuse returned by view() in intermediate variable because it will ruin
+the optimization.
+>>>"for(var/obj/shit in view())"
+is 30% faster than
+>>>"somelist=view();for(var/obj/shit in somelist)"
+
+Note there is no similar optimization for range() or for some unknown reasons it
+is almost unnoticeable. In my particular case I was interested in turfs only. I
+found best way to get turfs in certain range:
+
+
+Listing 1.1:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+#define RANGE_TURFS(RADIUS, CENTER) \
+  block( \
+    locate(max(CENTER.x-(RADIUS),1),          max(CENTER.y-(RADIUS),1),          CENTER.z), \
+    locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+  )
+			
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+Comparing
+>>>"for(var/turf/T in range())"
+and
+>>>"for(var/turf/T in RANGE_TURFS())"
+the rest is 16 (sixteen) times faster!
+
+Results can variee due to different amount of items lying around because they
+have to be skipped. The Space Station 13 is heavily overloaded with items.
+See also chapter 2 for explaination why I'm using a macro instead of proc.
+
+Testig method.
+-------------
+Listing 1.2:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//works just like range() but returns turfs only
+/proc/range_turfs(R as num, turf/center)
+	var/turf/T1 = locate(
+			max(center.x-R,1),
+			max(center.y-R,1),
+			center.z
+		)
+	var/turf/T2 = locate(
+			min(center.x+R,world.maxx),
+			min(center.y+R,world.maxy),
+			center.z
+		)
+	return block(T1, T2)
+
+//works just like view() but return objects of specified type only
+/proc/view_type(R as num, turf/center,type)
+	var/list/L1 = view(center,R)
+	var/list/L2 = new
+	for (var/I in L1)
+		if (istype(I,type))
+			L2+=I
+	return L2
+
+//works just like view() but return turfs only
+/proc/view_turfs(R as num, turf/center)
+	var/list/L1 = view(center,R)
+	var/list/L2 = new
+	for (var/turf/T in L1)
+		L2+=T
+	return L2
+
+/proc/view_turfs_2(R as num, turf/center)
+	var/list/L1 = view(center,R)
+	for (var/I in L1)
+		if (!isturf(I))
+			L1-=I
+	return L1
+
+//works just like view() but returns turfs only
+/proc/view_turfs_3(R as num, turf/center)
+	return view_type(R,center,/turf)
+
+/mob/verb/faels_test_view()
+	set name = "FaELS test_view"
+	set category = "Debug"
+	var/const/R = 9
+	var/const/N = 20000
+	var/start_time
+	var/turf/center = get_turf(usr)
+	var/L
+	world << "\red FaELS test_view has been initiated by [usr.key]"
+	sleep(5) //flush
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = view(R, center)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t view [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = range(R, center)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t range [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = range_turfs(R, center)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t range_turfs [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		L = 0
+		for (var/j in range_turfs(R, center))
+			++L
+	world << "\t for turf in range_turfs [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = view_turfs(R, center)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t view_turfs [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = view_turfs_2(R, center)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t view_turfs_2 [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = view_turfs_3(R, center)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t view_turfs_3 [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = view(R, center) & range_turfs(R, center)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t view&range_turfs [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		L = 0
+		for (var/j in (view(R, center) & range_turfs(R, center)))
+			++L
+	world << "\t for turf in view&range_turfs [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N/8,++i)
+		var/list/somelist = new
+		faels_get_affected_turfs(center, R, somelist)
+		L = 0
+		for (var/j in somelist)
+			++L
+	world << "\t faels_get_affected_turfs [L] = [(world.timeofday-start_time)*8/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		L = 0
+		for (var/turf/T in view(R, center))
+			++L
+	world << "\t for turf in view [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N/4,++i)
+		L = 0
+		for (var/turf/T in range(R, center))
+			++L
+	world << "\t for turf in range [L] = [(world.timeofday-start_time)*4/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		L = 0
+		for (var/turf/T in block(
+			locate(max(center.x-R,1),			max(center.y-R,1),			center.z),
+			locate(min(center.x+R,world.maxx),	min(center.y+R,world.maxy),	center.z)
+			))
+			++L
+	world << "\t for turf in block [L] = [(world.timeofday-start_time)/10] sec"
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		L = 0
+		for (var/turf/T in RANGE_TURFS(R, center))
+			++L
+	world << "\t for turf in RANGE_TURFS [L] = [(world.timeofday-start_time)/10] sec"
+
+/*
+
+	 view 188 = 7 sec
+	 range 669 = 15.8 sec
+	 range_turfs 361 = 1.3 sec
+	 for turf in range_turfs 361 = 1.4 sec
+	 view_turfs 87 = 7.6 sec
+	 view_turfs_2 87 = 9.2 sec
+	 view_turfs_3 87 = 9.1 sec
+	 view&range_turfs 87 = 12.2 sec
+	 for turf in view&range_turfs 87 = 12.2 sec
+	 faels_get_affected_turfs 98 = 96 sec
+	 for turf in view 87 = 5 sec <-------------- BEST view
+	 for turf in range 361 = 14.8 sec
+	 for turf in block 361 = 1 sec <------------ BEST range
+	 for turf in RANGE_TURFS 361 = 1 sec <------ BEST range
+*/
+	world << "\red \b FaELS test_view finished!"
+	return
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+Chapter 2: function calls
+=========================
+
+Calling of function is expensive in BYOND.
+
+lets compare two ways of calculating distance:
+Listing 2.1:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/proc/get_dist_euclidian(atom/Loc1 as turf|mob|obj,atom/Loc2 as turf|mob|obj)
+	var/dx = Loc1.x - Loc2.x
+	var/dy = Loc1.y - Loc2.y
+	var/dist = sqrt(dx**2 + dy**2)
+	return dist
+
+#define DIST_EUCLIDIAN(Loc1, Loc2) (sqrt((Loc1.x - Loc2.x)**2 + (Loc1.y - Loc2.y)**2))
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+The second one is two times faster. It does matter if you have 1k+ calls per
+event (e.g. bomb exploded, walls vanished, need to recalculate light).
+
+Note: you may also get rid out of sqrt because it is slower than **2'ing a value
+you comparing to distance. Ex.
+Listing 2.2:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+#define DIST_SQR(Loc1, Loc2) ((Loc1.x - Loc2.x)**2 + (Loc1.y - Loc2.y)**2)
+...
+/proc/check(treshold)
+  var/const/tresholdsqr = treshold*treshold
+  for (var/turf/T in world) //some really long cycle
+    if (tresholdsqr < DIST_SQR(usr, T)) //do not use "==" here, it need additional checks
+      dostuff(T)
+  return
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+Testig method.
+-------------
+Listing 2.3:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/mob/verb/faels_test_get_dist_euclidian()
+	set name = "FaELS test_get_dist_euclidian"
+	set category = "Debug"
+	var/const/R = 9
+	var/const/N = 80000
+	var/start_time
+	var/turf/center = get_turf(usr)
+	var/L
+	world << "\red FaELS test_get_dist_euclidian has been initiated by [usr.key]"
+	sleep(5) //flush
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = RANGE_TURFS(R, center)
+		L = 0
+		for (var/j in somelist)
+			L+=get_dist_euclidian(j,center)
+	world << "\t get_dist_euclidian [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = RANGE_TURFS(R, center)
+		L = 0
+		for (var/turf/j in somelist)
+			L+=DIST_EUCLIDIAN(j,center)
+	world << "\t DIST_EUCLIDIAN [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = RANGE_TURFS(R, center)
+		L = 0
+		for (var/turf/j in somelist)
+			L+=(j.x-center.x)**2 + (j.y-center.y)**2
+	world << "\t DIST_EUCLIDIAN**2 [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/turf/somelist = RANGE_TURFS(R, center)
+		L = 0
+		for (var/turf/j in somelist)
+			L+=(j.x-center.x)*(j.x-center.x) + (j.y-center.y)*(j.y-center.y)
+	world << "\t DIST_EUCLIDIAN*DIST_EUCLIDIAN [L] = [(world.timeofday-start_time)/10] sec"
+
+/*
+	start_time = world.timeofday
+	for(var/i=0,i<N/8,++i)
+		var/lum = (i % 2)?7:5
+		center.luminosity = lum
+		FaELS.update_light(center, lum, center.faels_luminosity)
+		center.faels_luminosity = lum
+	world << "\t update_light w/get_dist_euclidian [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N/8,++i)
+		var/lum = (i % 2)?7:5
+		center.luminosity = lum
+		FaELS.update_light_w_DIST_EUCLIDIAN(center, lum, center.faels_luminosity)
+		center.faels_luminosity = lum
+	world << "\t update_light w/DIST_EUCLIDIAN [L] = [(world.timeofday-start_time)/10] sec"
+*/
+/*
+	get_dist_euclidian 2621.22 = 60.6 sec
+	DIST_EUCLIDIAN 2621.22 = 35.8 sec
+	update_light w/get_dist_euclidian 2621.22 = 9 sec
+	update_light w/DIST_EUCLIDIAN 2621.22 = 7.3 sec <- DA FUK!!!11 20% performance wasted for trivial function call!
+
+*/
+	world << "\red \b FaELS test_get_dist_euclidian finished!"
+	return
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+Chapter 3: list operations
+==========================
+
+The Dream Maker language provides to us one hybryd data structure.
+/list/ behaves like C++ both std::vector and std::map. The funny thing is that
+/list/ does nothing with std::list. /list/ can also act like std::set but very
+poorly. In fact in terms of performance almost everithing BYOND does it does
+poorly.
+
+It's okay to do "for(v in some_null_variable)", it does nothing and produces no
+errors. Checking for null would be redudant here.
+
+How to add element to list but only if it is not in list yet?
+There is a nice operator "|=". Is it fast? It is never fast enought but yeah, it
+is good. 10 times worse than "|+" but still good.
+
+I have measured some light processing in my project. It is too big to put it
+here so I'll shortly explain what it does. It checks every light source, find
+any turfs which are affected by light and add them to some queue to be processed
+later. Several lamps can lit the same turf and I don't want it to be processed
+several times. I tried three approaches and have measured time using internal
+DreamDaemon profiler. Note: this time is the total time of lamps processing,
+queueing turfs should be merely a small part of it. But it is not so small.
+
+Listing 3.1:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	queue |= T // 14.9 sec
+// turfs will be multiqueued in next line and this caused some troubles later:
+	queue += T // 1.5 sec wrong ways are fast
+	if (!(T not queue)) queue += T // 273 sec OMG
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+The next thing with lists is when you have tho lists and want to do something
+with both. For example if you need to check turfs which are nearby but you don't
+see them. Shortly there is good way to do that but "good" does not mean "fast".
+
+
+Listing 3.2:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/turf/var/faels_touched
+/mob/verb/faels_test_old_range()
+	set name = "FaELS test_old_range"
+	set category = "Debug"
+	var/const/R1 = 5
+	var/const/R2 = 7
+	var/const/N = 80000
+	var/start_time
+	var/turf/center = get_turf(usr)
+	var/L
+	world << "\red FaELS test_old_range has been initiated by [usr.key]"
+	sleep(5) //flush
+
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		L = 0
+		for (var/turf/j in RANGE_TURFS(R2, center))
+			++L
+	world << "\t REFERENCE: for turf in RANGE_TURFS [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/new_view = view(R1, center)
+		var/list/old_range = RANGE_TURFS(R2, center)
+		old_range-=new_view
+		L = 0
+		for (var/turf/j in old_range)
+			++L
+	world << "\t turf in old_RANGE_TURFS-=new_view [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		var/list/new_view = new
+		for (var/turf/T in view(R1, center))
+			new_view+=T
+		var/list/old_range = RANGE_TURFS(R2, center)
+		old_range-=new_view
+		L = 0
+		for (var/turf/j in old_range)
+			++L
+	world << "\t turf in old_RANGE_TURFS-=(turfs in view) [L] = [(world.timeofday-start_time)/10] sec"
+
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		for (var/turf/j in view(R1, center))
+			j.faels_touched = start_time
+		L = 0
+		for (var/turf/j in RANGE_TURFS(R2, center))
+			if (j.faels_touched == start_time)
+				continue
+			++L
+	world << "\t if ! faels_touched [L] = [(world.timeofday-start_time)/10] sec"
+
+/*
+	start_time = world.timeofday
+	for(var/i=0,i<N,++i)
+		L = 0
+		for (var/turf/j in RANGE_TURFS(R2, center))
+			if (j in view(R1, center)) //EXTREEMLY SLOW
+				continue
+			++L
+	world << "\t for in RANGE_TURFS if ! in view [L] = [(world.timeofday-start_time)/10] sec"
+*/
+/*
+	//in overstuffed area
+	REFERENCE: for turf in RANGE_TURFS 225 = 2.5 sec
+	turf in old_RANGE_TURFS-=new_view 119 = 30.6 sec
+	turf in old_RANGE_TURFS-=(turfs in view) 119 = 26.2 sec <- GOOD ENOUGH
+	if ! faels_touched 119 = 21.8 sec <- BEST but involves additional variable
+	
+	//in empty space
+	REFERENCE: for turf in RANGE_TURFS 225 = 3 sec
+	turf in old_RANGE_TURFS-=new_view 104 = 18.4 sec
+	turf in old_RANGE_TURFS-=(turfs in view) 104 = 22.8 sec
+	if ! faels_touched 104 = 16.5 sec
+	
+	
+*/
+
+	world << "\red \b FaELS test_old_range finished!"
+	return
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+Chapter 4: static expressions
+=============================
+
+Often some calculations can be done during compilation and take zero time in
+run time. DreamMaker is smart enought to detect such cases. Sometimes.
+
+Listing 4.1:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/turf/verb/test_compile_time_optimizations() //Yes, the byond does these optimisations! Hooray!
+	set name = "FaELS test_compile_time_optimizations"
+	set category = "Debug"
+	var/n = 0
+	var/start_time = world.timeofday
+	for(var/i=1 to 6550000)
+		n += (((((((2*2)>>2)<<3)>>1)>>1)>>1)+1)>>1
+	world << "DEBUG: FaELS: n=[n]  in [(world.timeofday-start_time)/10] seconds" // 1.0 sec
+	n = 0
+	start_time = world.timeofday
+	for(var/i=1 to 6550000)
+		n += 1
+	world << "DEBUG: FaELS: n=[n]  in [(world.timeofday-start_time)/10] seconds" // 1.0 sec
+	n = 0
+	start_time = world.timeofday
+	for(var/i=1 to 6550000)
+		n += (((((((2*2)>>2)<<3)>>(i/i))>>1)>>1)+1)>>1
+	world << "DEBUG: FaELS: n=[n]  in [(world.timeofday-start_time)/10] seconds" // 4.0 sec - FAIL, DM doesnt know about i/i==1 (while i!=0 of course)
+	n = 0
+	start_time = world.timeofday
+	for(var/i=1 to 6550000)
+		n += (i/i)
+	world << "DEBUG: FaELS: n=[n]  in [(world.timeofday-start_time)/10] seconds" // 1.4 sec
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+Chapter 5: bit operations and null
+==================================
+
+Bit operations like &, ^, |, <<, ~ and so on and null are not friends. They
+always return 0. A nonexistent element of list is of course null.
+
+Listing 5.1:
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+/turf/verb/faels_list_or()
+	set name = "FaELS test list or"
+	set category = "Debug"
+	set src in world
+	var/list/l = new
+	l["exist1"] = 1
+	l["exist2"] = 1
+	l["exist6"] = 1
+
+	if ("exist1" in l)
+		l["exist1"] = l["exist1"] | 2
+	else
+		l["exist1"] = 2
+
+	l["exist2"] |= 2
+
+
+	if ("nonexistent3" in l)
+		l["nonexistent3"] = l["nonexistent3"] | 2
+	else
+		l["nonexistent3"] = 2
+
+	l["nonexistent4"] |= 2
+	l["nonexistent5"] = l["nonexistent5"] | 2
+	l["nonexistent5"] = (l["nonexistent5"]?l["nonexistent5"]:0) | 2
+	l["exist6"] = (l["exist6"]?l["exist6"]:0) | 2
+	//l["nonexistent4"] += 2
+
+	for (var/i in l)
+		usr << "l\[[i]\] = [l[i]]"
+
+/*
+	Outputs:
+	l[exist1] = 3
+	l[exist2] = 3
+	l[exist6] = 3
+	l[nonexistent3] = 2
+	l[nonexistent4] = 0
+	l[nonexistent5] = 2
+
+	goddammit byond! nonexistent3 and nonexistent4 must be equal just as exist1 and exist2 are!
+*/
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+* Chapter 6: Del()
+==================
+
+Surprisingly, /atom/proc/Del() itself takes ages. Deal with it.
+
+
