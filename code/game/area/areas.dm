@@ -36,7 +36,7 @@
 
 //	spawn(15)
 	power_change()		// all machines set to current power level, also updates lighting icon
-	#if LIGHTING == DAL_TG
+	#if LIGHTING_ENGINE == LE_DAL_TG
 	InitializeLighting()
 	#endif
 

@@ -738,7 +738,7 @@
 				var/area/A = T.loc
 				if(A)
 					if(A.lighting_use_dynamic)
-						#if LIGHTING == DAL_TG
+						#if LIGHTING_ENGINE == LE_DAL_TG
 						light_amount = min(10,T.lighting_lumcount) - 5 //hardcapped so it's not abused by having a ton of flashlights
 						#else
 						light_amount = T.GetLightLevel()
@@ -759,7 +759,7 @@
 				var/area/A = T.loc
 				if(A)
 					if(A.lighting_use_dynamic)
-						#if LIGHTING == DAL_TG
+						#if LIGHTING_ENGINE == LE_DAL_TG
 						light_amount = T.lighting_lumcount
 						#else
 						light_amount = T.GetLightLevel()
@@ -1209,7 +1209,7 @@
 		//0.1% chance of playing a scary sound to someone who's in complete darkness
 		if(isturf(loc) && rand(1,1000) == 1)
 			var/turf/currentTurf = loc
-			#if LIGHTING == DAL_TG
+			#if LIGHTING_ENGINE == LE_DAL_TG
 			if(!currentTurf.lighting_lumcount)
 			#else
 			if(currentTurf.GetLightLevel()==0)

@@ -39,7 +39,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 		playsound(epicenter, "explosion", 100, 1, round(devastation_range,1) )
 
 
-#if LIGHTING != ZERO_LIGHT //todo: do smth for faels
+#if LIGHTING_ENGINE != LE_ZERO_LIGHT //todo: do smth for faels
 		var/lighting_controller_was_processing = lighting_controller.processing	//Pause the lighting updates for a bit
 		lighting_controller.processing = 0
 #endif
@@ -82,7 +82,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 
 		sleep(8)
 
-#if LIGHTING != ZERO_LIGHT
+#if LIGHTING_ENGINE != LE_ZERO_LIGHT
 		if(!lighting_controller.processing)	lighting_controller.processing = lighting_controller_was_processing
 #endif
 		if(!powernet_rebuild_was_deferred_already)

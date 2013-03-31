@@ -7,11 +7,11 @@
 
 /* Select lighting engine
  * Valid values are:
- * DAL_TG
- * ZERO_LIGHT
- * FaELS
+ * LE_DAL_TG
+ * LE_ZERO_LIGHT
+ * LE_FaELS
  */
- #define LIGHTING ZERO_LIGHT
+ #define LIGHTING_ENGINE LE_ZERO_LIGHT
 
 
 //SYSTEM TOGGLES - these allow you to compile the game without some of the laggier systems if your server cannot cope with demand

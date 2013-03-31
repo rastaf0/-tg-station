@@ -109,7 +109,7 @@ var/global/datum/controller/gameticker/ticker
 
 	supply_shuttle.process() 		//Start the supply shuttle regenerating points -- TLE
 	master_controller.process()		//Start master_controller.process()
-	#if LIGHTING == DAL_TG
+	#if LIGHTING_ENGINE == LE_DAL_TG
 	lighting_controller.process()	//Start processing DynamicAreaLighting updates
 	#endif
 	sleep(10)

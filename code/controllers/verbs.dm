@@ -4,7 +4,7 @@
 /client/proc/restart_controller(controller in list(
 	"Master",
 	"Failsafe",
-#if LIGHTING == DAL_TG
+#if LIGHTING_ENGINE == LE_DAL_TG
 	"Lighting",
 #endif
 	"Supply Shuttle"
@@ -24,7 +24,7 @@
 		if("Failsafe")
 			new /datum/controller/failsafe()
 			feedback_add_details("admin_verb","RFailsafe")
-#if LIGHTING == DAL_TG
+#if LIGHTING_ENGINE == LE_DAL_TG
 		if("Lighting")
 			new /datum/controller/lighting()
 			lighting_controller.process()
@@ -41,7 +41,7 @@
 	"Master",
 	"Failsafe",
 	"Ticker",
-#if LIGHTING != ZERO_LIGHT
+#if LIGHTING_ENGINE != LE_ZERO_LIGHT
 	"Lighting",
 #endif
 	"Air",
@@ -69,7 +69,7 @@
 		if("Ticker")
 			debug_variables(ticker)
 			feedback_add_details("admin_verb","DTicker")
-#if LIGHTING != ZERO_LIGHT
+#if LIGHTING_ENGINE != LE_ZERO_LIGHT
 		if("Lighting")
 			debug_variables(lighting_controller)
 			feedback_add_details("admin_verb","DLighting")

@@ -164,7 +164,7 @@
 	return
 
 /area
-	var/sd_lighting = 1 // "0" means lighting effects shouldn't be applied in this area
+	var/lighting_use_dynamic = 1 // "0" means lighting effects shouldn't be applied in this area
 
 /atom/proc/SetLuminosity(var/v as num)
 	if (istype(FaELS))

@@ -210,7 +210,7 @@
 /turf/proc/ChangeTurf(var/path)
 	if(!path)			return
 	if(path == type)	return src
-	#if LIGHTING == DAL_TG
+	#if LIGHTING_ENGINE == LE_DAL_TG
 	var/old_lumcount = lighting_lumcount - initial(lighting_lumcount)
 	var/old_opacity = opacity
 	#endif
@@ -221,7 +221,7 @@
 		W:Assimilate_Air()
 		W.RemoveLattice()
 
-	#if LIGHTING == DAL_TG
+	#if LIGHTING_ENGINE == LE_DAL_TG
 	W.lighting_lumcount += old_lumcount
 	if(old_lumcount != W.lighting_lumcount)	//light levels of the turf have changed. We need to shift it to another lighting-subarea
 		W.lighting_changed = 1

@@ -432,6 +432,6 @@ var/list/be_special_flags = list(
 
 
 
-#define ZERO_LIGHT	0
-#define DAL_TG		1
-#define FaELS		2
+#define LE_ZERO_LIGHT	0
+#define LE_DAL_TG		1
+#define LE_FaELS		2

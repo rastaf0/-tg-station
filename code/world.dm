@@ -72,8 +72,11 @@
 	master_controller = new /datum/controller/game_controller()
 	spawn(-1)
 		master_controller.setup()
-		#if LIGHTING == DAL_TG
+		#if LIGHTING_ENGINE == LE_DAL_TG
 		lighting_controller.Initialize()
+		#elif LIGHTING_ENGINE == LE_FaELS
+		world << "\red \b Initializing light and darkness..."
+		FaELS.initialize()
 		#endif
 	src.update_status()
 
