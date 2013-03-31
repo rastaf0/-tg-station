@@ -1,0 +1,271 @@
+"aa" = (/turf/space,/area)
+"ab" = (/obj/structure/cable,/obj/machinery/power/solar{id = "auxsolareast"; name = "Port Auxiliary Solar Array"},/turf/simulated/floor/airless{icon_state = "solarpanel"},/area/solar/auxport)
+"ac" = (/obj/structure/lattice,/turf/space,/area)
+"ad" = (/turf/simulated/floor/plating/airless,/area/solar/auxport)
+"ae" = (/obj/structure/grille,/turf/space,/area)
+"af" = (/turf/simulated/wall/r_wall,/area/storage/tech)
+"ag" = (/turf/simulated/wall,/area/storage/tech)
+"ah" = (/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/simulated/floor/plating/airless,/area/solar/auxport)
+"ai" = (/obj/structure/grille,/obj/structure/lattice,/turf/space,/area)
+"aj" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"ak" = (/obj/machinery/door/airlock/external{name = "West Auxillary Solar Maintenance"; req_access = null; req_access_txt = "13"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"al" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/storage/tech)
+"am" = (/obj/machinery/light/spot,/turf/space,/area/maintenance/fpmaint2)
+"an" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"ao" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"ap" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/storage/tech)
+"aq" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/storage/tech)
+"ar" = (/turf/simulated/floor/plating,/area/storage/tech)
+"as" = (/turf/simulated/wall,/area/maintenance/fpmaint2)
+"at" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"au" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"av" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aw" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"ax" = (/obj/machinery/door/airlock/external{name = "Auxillary Solar Maintenance"; req_access = null; req_access_txt = "13"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"ay" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"az" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aA" = (/obj/structure/table,/obj/item/weapon/cable_coil{pixel_x = -3; pixel_y = 3},/obj/item/weapon/cable_coil,/obj/item/weapon/cell{charge = 100; maxcharge = 15000},/turf/simulated/floor/plating,/area/storage/tech)
+"aB" = (/obj/structure/table,/obj/item/weapon/screwdriver{pixel_y = 16},/obj/item/weapon/wirecutters,/turf/simulated/floor/plating,/area/storage/tech)
+"aC" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aD" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = "90Curve"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aE" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 6},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aF" = (/obj/machinery/atmospherics/pipe/tank/air{dir = 8},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aG" = (/obj/effect/sign/securearea{name = "EXTERNAL AIRLOCK"; desc = "A warning sign which reads 'EXTERNAL AIRLOCK'"; icon_state = "space"; pixel_x = -1},/turf/simulated/wall/r_wall,/area/maintenance/auxsolarport)
+"aH" = (/obj/machinery/power/solar_control{id = "auxsolareast"; name = "Port Auxiliary Solar Control"; track = 2},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aI" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = "90Curve"},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aJ" = (/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aK" = (/turf/simulated/wall/r_wall,/area/maintenance/auxsolarport)
+"aL" = (/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aM" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aN" = (/obj/machinery/atmospherics/pipe/manifold{color = "blue"; dir = 8; icon_state = "manifold-b-f"; initialize_directions = 11; level = 1; name = "pipe manifold"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aO" = (/obj/structure/stool{pixel_y = 8},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aP" = (/obj/structure/cable,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aQ" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/terminal,/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aR" = (/turf/simulated/floor/plating/airless,/area)
+"aS" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/weapon/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/obj/item/clothing/gloves/yellow,/obj/item/device/t_scanner,/obj/item/clothing/glasses/meson,/turf/simulated/floor/plating,/area/storage/tech)
+"aT" = (/turf/simulated/wall,/area/security/checkpoint2)
+"aU" = (/obj/machinery/meter,/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"aV" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 8; name = "Port Auxiliary Solar APC"; pixel_x = -25; pixel_y = 3},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aW" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aX" = (/obj/machinery/camera{c_tag = "Port Auxiliary Solars"; dir = 1},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/smes{charge = 0},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"aY" = (/turf/simulated/wall/r_wall,/area/storage/primary)
+"aZ" = (/turf/simulated/wall/r_wall,/area/maintenance/fpmaint)
+"ba" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 0; scrub_Toxins = 0},/obj/machinery/alarm{dir = 4; icon_state = "alarm0"; pixel_x = -22},/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/weapon/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/obj/item/device/multitool,/obj/item/clothing/glasses/meson,/turf/simulated/floor/plating,/area/storage/tech)
+"bb" = (/obj/machinery/requests_console{department = "Security"; departmentType = 5; pixel_y = 30},/obj/machinery/light_switch{pixel_x = 27},/obj/machinery/light{dir = 1},/turf/simulated/floor{icon_state = "red"; dir = 5},/area/security/checkpoint2)
+"bc" = (/obj/machinery/atmospherics/valve,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bd" = (/obj/machinery/door/airlock/engineering{icon_state = "door_closed"; locked = 0; name = "Port Auxiliary Solar Access"; req_access_txt = "10"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/auxsolarport)
+"be" = (/obj/machinery/vending/assist,/turf/simulated/floor,/area/storage/primary)
+"bf" = (/obj/item/weapon/extinguisher,/obj/machinery/firealarm{dir = 2; pixel_y = 24},/turf/simulated/floor,/area/storage/primary)
+"bg" = (/obj/structure/table,/obj/item/weapon/wirecutters,/obj/item/device/flashlight{pixel_x = 1; pixel_y = 5},/turf/simulated/floor,/area/storage/primary)
+"bh" = (/obj/structure/table,/obj/item/device/t_scanner,/turf/simulated/floor,/area/storage/primary)
+"bi" = (/obj/structure/table,/obj/item/device/assembly/igniter{pixel_x = -8; pixel_y = -4},/obj/item/device/assembly/igniter,/obj/item/weapon/screwdriver{pixel_y = 16},/obj/machinery/camera{c_tag = "Assistant Storage"},/turf/simulated/floor,/area/storage/primary)
+"bj" = (/obj/structure/table,/obj/item/device/assembly/signaler,/obj/item/device/assembly/signaler,/obj/item/device/radio/intercom{broadcasting = 0; name = "Station Intercom (General)"; pixel_y = 20},/turf/simulated/floor,/area/storage/primary)
+"bk" = (/obj/structure/table,/obj/machinery/cell_charger,/obj/item/device/multitool,/obj/item/weapon/cell{charge = 100; maxcharge = 15000},/turf/simulated/floor,/area/storage/primary)
+"bl" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/mechanical{pixel_x = -2; pixel_y = -1},/obj/machinery/light{dir = 1},/turf/simulated/floor,/area/storage/primary)
+"bm" = (/obj/machinery/power/apc{dir = 1; name = "Storage APC"; pixel_x = -1; pixel_y = 26},/obj/item/stack/sheet/metal{amount = 50},/obj/item/stack/sheet/metal{amount = 50},/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/simulated/floor,/area/storage/primary)
+"bn" = (/obj/machinery/alarm{dir = 8; icon_state = "alarm0"; pixel_x = 24},/obj/machinery/requests_console{department = "Assistant Storage"; departmentType = 0; pixel_y = 30},/turf/simulated/floor,/area/storage/primary)
+"bo" = (/turf/simulated/wall,/area/maintenance/fpmaint)
+"bp" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/wall/r_wall,/area/storage/tech)
+"bq" = (/obj/machinery/requests_console{department = "Tech storage"; pixel_x = -30},/turf/simulated/floor/plating,/area/storage/tech)
+"br" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 8},/turf/simulated/floor{icon_state = "red"; dir = 4},/area/security/checkpoint2)
+"bs" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/obj/machinery/door/airlock/security{name = "Security"; req_access = null; req_access_txt = "1"},/turf/simulated/floor/plating,/area/security/checkpoint2)
+"bt" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bu" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bv" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bw" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bx" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"by" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/storage/primary)
+"bz" = (/obj/effect/landmark/start{name = "Assistant"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = "90Curve"},/turf/simulated/floor,/area/storage/primary)
+"bA" = (/obj/effect/landmark/start{name = "Assistant"},/turf/simulated/floor,/area/storage/primary)
+"bB" = (/obj/structure/stool{pixel_y = 8},/obj/effect/landmark/start{name = "Assistant"},/turf/simulated/floor,/area/storage/primary)
+"bC" = (/obj/item/stack/rods{amount = 50},/obj/effect/landmark/start{name = "Assistant"},/turf/simulated/floor,/area/storage/primary)
+"bD" = (/obj/item/stack/sheet/glass{amount = 50},/obj/effect/landmark/start{name = "Assistant"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = "90Curve"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor,/area/storage/primary)
+"bE" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = "Streight"},/turf/simulated/floor,/area/storage/primary)
+"bF" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"bG" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = "90Curve"},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"bH" = (/obj/machinery/vending/assist,/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/floor/plating,/area/storage/tech)
+"bI" = (/obj/item/weapon/crowbar,/obj/item/device/flash,/obj/item/device/radio/intercom{name = "Station Intercom (General)"; pixel_y = -29},/turf/simulated/floor{icon_state = "red"; dir = 6},/area/security/checkpoint2)
+"bJ" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bK" = (/obj/structure/table,/obj/item/weapon/cable_coil{pixel_x = 2; pixel_y = -2},/obj/item/weapon/cable_coil{pixel_x = 3; pixel_y = -7},/obj/item/weapon/screwdriver{pixel_y = 16},/obj/item/weapon/cell{charge = 100; maxcharge = 15000},/turf/simulated/floor,/area/storage/primary)
+"bL" = (/obj/effect/landmark/start{name = "Assistant"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor,/area/storage/primary)
+"bM" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/mechanical{pixel_x = -2; pixel_y = -1},/turf/simulated/floor,/area/storage/primary)
+"bN" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"bO" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 5},/turf/simulated/floor/plating,/area/storage/tech)
+"bP" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/floor/plating,/area/storage/tech)
+"bQ" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/wall,/area/security/checkpoint2)
+"bR" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/wall,/area/maintenance/fpmaint2)
+"bS" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/wall,/area/maintenance/fpmaint2)
+"bT" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bU" = (/obj/machinery/atmospherics/pipe/manifold{color = "red"; dir = 1; icon_state = "manifold-r-f"; level = 1; name = "pipe manifold"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"bV" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/floor,/area/storage/primary)
+"bW" = (/obj/effect/landmark/start{name = "Assistant"},/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; icon_state = "off"; on = 1; scrub_N2O = 0; scrub_Toxins = 0},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = "90Curve"},/turf/simulated/floor,/area/storage/primary)
+"bX" = (/obj/effect/landmark/start{name = "Assistant"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/storage/primary)
+"bY" = (/obj/effect/landmark/start{name = "Assistant"},/obj/structure/stool{pixel_y = 8},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/storage/primary)
+"bZ" = (/obj/effect/landmark/start{name = "Assistant"},/obj/machinery/atmospherics/unary/vent_pump{dir = 4; on = 1},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = "90Curve"},/turf/simulated/floor,/area/storage/primary)
+"ca" = (/obj/structure/table,/obj/item/weapon/weldingtool,/obj/item/weapon/crowbar,/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/floor,/area/storage/primary)
+"cb" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/wall,/area/maintenance/fpmaint)
+"cc" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 10},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"cd" = (/obj/machinery/camera{c_tag = "Fore Port Maintenance"; dir = 2},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"ce" = (/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"cf" = (/turf/simulated/wall,/area/hallway/secondary/entry)
+"cg" = (/obj/machinery/camera,/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/floor,/area/hallway/secondary/entry)
+"ch" = (/obj/structure/closet/extinguisher{pixel_x = -5; pixel_y = 30},/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/floor,/area/hallway/secondary/entry)
+"ci" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/floor,/area/hallway/secondary/entry)
+"cj" = (/obj/machinery/atmospherics/pipe/manifold{color = "blue"; dir = 4; icon_state = "manifold-b-f"; initialize_directions = 11; level = 1; name = "pipe manifold"},/turf/simulated/floor,/area/hallway/secondary/entry)
+"ck" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"cl" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"cm" = (/obj/machinery/space_heater,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"cn" = (/obj/machinery/camera{c_tag = "Auxiliary Solars Maintenance"; dir = 1},/obj/machinery/space_heater,/turf/simulated/floor/plating,/area/maintenance/fpmaint2)
+"co" = (/obj/structure/table,/obj/item/weapon/wrench,/obj/item/device/analyzer,/turf/simulated/floor,/area/storage/primary)
+"cp" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/storage/primary)
+"cq" = (/turf/simulated/floor,/area/storage/primary)
+"cr" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor,/area/storage/primary)
+"cs" = (/obj/structure/table,/obj/item/weapon/crowbar,/obj/item/device/assembly/prox_sensor{pixel_x = -8; pixel_y = 4},/turf/simulated/floor,/area/storage/primary)
+"ct" = (/obj/structure/table,/obj/item/weapon/storage/belt/utility,/turf/simulated/floor,/area/storage/primary)
+"cu" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor,/area/storage/primary)
+"cv" = (/turf/simulated/floor{icon_state = "delivery"},/area/storage/primary)
+"cw" = (/obj/machinery/navbeacon{codes_txt = "delivery;dir=4"; location = "Tool Storage"},/turf/simulated/floor{icon_state = "bot"},/area/storage/primary)
+"cx" = (/obj/structure/disposalpipe/trunk,/obj/machinery/disposal,/turf/simulated/floor,/area/storage/primary)
+"cy" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/machinery/atmospherics/pipe/manifold{color = "blue"; dir = 8; icon_state = "manifold-b-f"; initialize_directions = 11; level = 1; name = "pipe manifold"},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"cz" = (/obj/machinery/meter,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"cA" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = "Streight"},/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
+"cB" = (/turf/simulated/floor{icon_state = "neutral"},/area/hallway/secondary/entry)
+"cC" = (/turf/simulated/floor,/area/hallway/secondary/entry)
+"cD" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor,/area/hallway/secondary/entry)
+"cE" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/wall,/area/maintenance/fpmaint2)
+"cF" = (/obj/machinery/status_display{pixel_y = 2; supply_display = 1},/turf/simulated/wall,/area/maintenance/fpmaint2)
+"cG" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/storage/primary)
+"cH" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/maintenance{name = "Primary Tool Storage"; req_access_txt = "12"},/turf/simulated/floor,/area/storage/primary)
+"cI" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/storage/primary)
+"cJ" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/storage/primary)
+"cK" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/storage/primary)
+"cL" = (/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/maintenance{name = "Primary Tool Storage"; req_access_txt = "12"},/turf/simulated/floor,/area/storage/primary)
+"cM" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/disposalpipe/segment{dir = 1},/turf/simulated/floor/plating,/area/storage/primary)
+"cN" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/wall,/area/maintenance/fpmaint)
+"cO" = (/obj/machinery/vending/cigarette,/turf/simulated/floor,/area/hallway/secondary/entry)
+"cP" = (/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/glass,/turf/simulated/floor,/area/hallway/secondary/entry)
+"cQ" = (/obj/machinery/door/firedoor/border_only{dir = 8},/turf/simulated/floor,/area/hallway/primary/port)
+"cR" = (/obj/machinery/atmospherics/pipe/manifold{color = "red"; dir = 8; icon_state = "manifold-r-f"; initialize_directions = 11; level = 1; name = "pipe manifold"},/turf/simulated/floor,/area/hallway/primary/port)
+"cS" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; icon_state = "off"; on = 1; scrub_N2O = 0; scrub_Toxins = 0},/turf/simulated/floor,/area/hallway/primary/port)
+"cT" = (/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/machinery/power/apc{name = "Port Hall APC"; dir = 1; pixel_y = 26},/turf/simulated/floor,/area/hallway/primary/port)
+"cU" = (/turf/simulated/floor,/area/hallway/primary/port)
+"cV" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor,/area/hallway/primary/port)
+"cW" = (/obj/effect/landmark/start,/turf/simulated/floor,/area/hallway/primary/port)
+"cX" = (/obj/structure/disposalpipe/segment{dir = 1},/turf/simulated/floor,/area/hallway/primary/port)
+"cY" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor,/area/hallway/primary/port)
+"cZ" = (/obj/structure/closet/extinguisher{pixel_x = 5; pixel_y = 30},/turf/simulated/floor,/area/hallway/primary/port)
+"da" = (/turf/simulated/wall,/area/hallway/primary/port)
+"db" = (/obj/machinery/vending/coffee,/turf/simulated/floor,/area/hallway/secondary/entry)
+"dc" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/floor,/area/hallway/primary/port)
+"dd" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = "90Curve"},/turf/simulated/floor,/area/hallway/primary/port)
+"de" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = "90Curve"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/hallway/primary/port)
+"df" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = "Streight"},/turf/simulated/floor,/area/hallway/primary/port)
+"dg" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/hallway/primary/port)
+"dh" = (/obj/machinery/navbeacon{codes_txt = "patrol;next_patrol=CHW"; location = "Lockers"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = "90Curve"},/turf/simulated/floor,/area/hallway/primary/port)
+"di" = (/obj/machinery/vending/cola,/turf/simulated/floor,/area/hallway/secondary/entry)
+"dj" = (/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = "Streight"},/turf/simulated/floor,/area/hallway/primary/port)
+"dk" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor,/area/hallway/primary/port)
+"dl" = (/obj/machinery/firealarm{dir = 1; pixel_y = -24},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor,/area/hallway/primary/port)
+"dm" = (/obj/machinery/camera{c_tag = "Arrivals Hallway East"; dir = 1},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor,/area/hallway/primary/port)
+"dn" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/hallway/primary/port)
+"do" = (/obj/item/device/radio/intercom{name = "Station Intercom (General)"; pixel_y = -29},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor,/area/hallway/primary/port)
+"dp" = (/obj/structure/disposalpipe/sortjunction{dir = 4; icon_state = "pipe-j2s"; sortType = 27},/turf/simulated/floor,/area/hallway/primary/port)
+"dq" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 4; on = 1},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor,/area/hallway/primary/port)
+"dr" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/atmospherics/pipe/manifold{color = "blue"; dir = 4; icon_state = "manifold-b-f"; initialize_directions = 11; level = 1; name = "pipe manifold"},/turf/simulated/floor,/area/hallway/primary/port)
+"ds" = (/obj/machinery/vending/snack,/turf/simulated/floor,/area/hallway/secondary/entry)
+"dt" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/wall,/area/hallway/primary/port)
+"du" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/obj/structure/disposalpipe/segment{dir = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor/plating,/area/hallway/primary/port)
+"dv" = (/obj/machinery/door/firedoor/border_only,/obj/machinery/door/window/northleft{dir = 2; icon_state = "left"; req_access_txt = "0"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/hallway/primary/port)
+"dw" = (/obj/machinery/door/firedoor/border_only,/obj/machinery/door/window/northleft{base_state = "right"; dir = 2; icon_state = "right"},/turf/simulated/floor,/area/hallway/primary/port)
+"dx" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/wall/r_wall,/area/hallway/primary/port)
+"dy" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/hallway/primary/port)
+"dz" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/hallway/primary/port)
+"dA" = (/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/glass,/turf/simulated/floor{icon_state = "dark"},/area/hallway/primary/port)
+"dB" = (/turf/simulated/wall,/area/engine/engine_smes)
+"dC" = (/obj/machinery/power/apc{dir = 1},/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dD" = (/obj/machinery/power/smes,/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dE" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dF" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/quartermaster/storage)
+"dG" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor,/area/quartermaster/storage)
+"dH" = (/turf/simulated/floor,/area/quartermaster/storage)
+"dI" = (/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/machinery/power/terminal{tag = "icon-term (NORTH)"; icon_state = "term"; dir = 1},/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dJ" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = "Streight"},/obj/machinery/light/small{tag = "icon-bulb1 (EAST)"; icon_state = "bulb1"; dir = 4},/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dK" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/structure/grille,/turf/simulated/floor,/area/quartermaster/storage)
+"dL" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/grille,/turf/simulated/floor,/area/quartermaster/storage)
+"dM" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/machinery/power/monitor,/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dN" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = "Streight"},/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dO" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = "90Curve"},/turf/simulated/floor/plating,/area/engine/engine_smes)
+"dP" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/grille,/turf/simulated/floor,/area/quartermaster/storage)
+"dQ" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/grille,/turf/simulated/floor,/area/quartermaster/storage)
+"dR" = (/turf/simulated/wall,/area/quartermaster/storage)
+"dS" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 1},/turf/simulated/floor,/area/quartermaster/storage)
+"dT" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = "90Curve"},/turf/simulated/floor,/area/quartermaster/storage)
+"dU" = (/obj/machinery/light_switch,/turf/simulated/floor,/area/quartermaster/storage)
+"dV" = (/obj/machinery/light/spot{base_state = "lamp"; icon_state = "lamp1"},/turf/simulated/floor{icon_state = "bot"},/area/quartermaster/storage)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabababababacadacabababababaaaeaaaaaaaaaaaaaaaaafagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaacaaacacaaaaahaaaaacaaaaacaaaeaaaaaaaaaaaaaaaaafagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaeaiaaaaacaaajakajacaaacacaiaeaeaaaaaaaaaaaaaaaaalagagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaamaaaaaaaaacaaanaoanacaaaaaaaaaaaaaaaaaaaaaaaaafapaqaragaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaasatatatauasavawaxayazacacacacacacacacacacacacafaAaBaragaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaasaCaCaDaEaFaGaHaIaJaKaaaaacaaacaaacaaacaaacaaafarararagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaasaLaLaMaNaFaKaOaPaQaKaRaRacaaacaaacaaacaaacaaafaSararagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaTaTaTaMaUaLaKaVaWaXaKaYaYaYaYaYaYaYaYaYaYaZaaafbaararagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaTbbaTaMbcaLaKaGbdaKaKbebfbgbhbibjbkblbmbnaZboafbpbqagagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaTbrbsbtbubvbvbvbwbvbxbybzbAbAbAbBbAbCbDbEbFbGagbHaragaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaTbIaTaLbJaLaLaLaLaLasbKbLbAbAbAbAbAbAbLbMbobNagbObPagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaTbQbQbRbSbRbTbUbTbTbRbVbWbXbXbXbYbXbXbZcacbcccdceagagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaacfcgchcicjckaLclcmcnascocpcqcrcsctcucvcwcxbocyczcAcAboaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaacfcBcCcCcDasascEasascFcGcHcIcJcJcJcJcKcLcMbocNboboboboaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaacfcOcCcCcDcPcQcRcScTcUcUcVcUcWcUcUcUcUcUcXcUcYcUcUcZdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaacfdbcCcCcDcPcQdcdddedfdgdedgdgdhcUcUcUcUcXcUcYcUcUcUdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaacfdicCcCcDcPcQdcdjdkdkdkdldkdmdndkdkdkdodpdqdrdkdkdkdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaacfdscCcCcDdadadtdudadadadadadadvdwdadadadadadxdydzdAdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaacfcfcfcfcfdBdCdDdEdBaaaaaaaadFdGdHdFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaadBdEdIdJdBaaaaaaaadKdGdHdLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaadBdMdNdOdBaaaaaaaadKdGdHdLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaadBdBdBdBdBaaaaaaaadKdGdHdLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadKdGdHdLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadPdGdHdQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdRdRdRdRdRdRdRdRdRdRdRdGdHdRdRdRdRdRdRdRdRdRdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdSdTdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdRdRdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdRdHdHdHdHdHdHdHdHdHdHdHdHdHdRdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdUdVdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdRdHdHdHdHdHdHdHdHdHdRdRdHdHdHdRdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdHdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaadRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRdRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}
