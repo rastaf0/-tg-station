@@ -72,8 +72,9 @@
 	master_controller = new /datum/controller/game_controller()
 	spawn(-1)
 		master_controller.setup()
+		#if LIGHTING == DAL_TG
 		lighting_controller.Initialize()
-
+		#endif
 	src.update_status()
 
 	process_teleport_locs()			//Sets up the wizard teleport locations

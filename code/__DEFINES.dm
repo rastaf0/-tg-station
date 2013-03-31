@@ -429,3 +429,9 @@ var/list/be_special_flags = list(
 	"Monkey" = BE_MONKEY,
 	"Ninja" = BE_NINJA
 	)
+
+
+
+#define ZERO_LIGHT	0
+#define DAL_TG		1
+#define FaELS		2

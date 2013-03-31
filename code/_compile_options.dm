@@ -5,6 +5,13 @@
 								//By using the testing("message") proc you can create debug-feedback for people with this
 								//uncommented, but not visible in the release version)
 
+/* Select lighting engine
+ * Valid values are:
+ * DAL_TG
+ * ZERO_LIGHT
+ * FaELS
+ */
+ #define LIGHTING ZERO_LIGHT
 
 
 //SYSTEM TOGGLES - these allow you to compile the game without some of the laggier systems if your server cannot cope with demand

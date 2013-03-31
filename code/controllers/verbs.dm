@@ -1,7 +1,14 @@
 //TODO: rewrite and standardise all controller datums to the datum/controller type
 //TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
 
-/client/proc/restart_controller(controller in list("Master","Failsafe","Lighting","Supply Shuttle"))
+/client/proc/restart_controller(controller in list(
+	"Master",
+	"Failsafe",
+#if LIGHTING == DAL_TG
+	"Lighting",
+#endif
+	"Supply Shuttle"
+	))
 	set category = "Debug"
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
@@ -17,10 +24,12 @@
 		if("Failsafe")
 			new /datum/controller/failsafe()
 			feedback_add_details("admin_verb","RFailsafe")
+#if LIGHTING == DAL_TG
 		if("Lighting")
 			new /datum/controller/lighting()
 			lighting_controller.process()
 			feedback_add_details("admin_verb","RLighting")
+#endif
 		if("Supply Shuttle")
 			supply_shuttle.process()
 			feedback_add_details("admin_verb","RSupply")
@@ -28,7 +37,23 @@
 	return
 
 
-/client/proc/debug_controller(controller in list("Master","Failsafe","Ticker","Lighting","Air","Jobs","Sun","Radio","Supply Shuttle","Emergency Shuttle","Configuration","pAI", "Cameras", "Events"))
+/client/proc/debug_controller(controller in list(
+	"Master",
+	"Failsafe",
+	"Ticker",
+#if LIGHTING != ZERO_LIGHT
+	"Lighting",
+#endif
+	"Air",
+	"Jobs",
+	"Sun",
+	"Radio",
+	"Supply Shuttle",
+	"Emergency Shuttle",
+	"Configuration",
+	"pAI",
+	"Cameras",
+	"Events"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -44,9 +69,11 @@
 		if("Ticker")
 			debug_variables(ticker)
 			feedback_add_details("admin_verb","DTicker")
+#if LIGHTING != ZERO_LIGHT
 		if("Lighting")
 			debug_variables(lighting_controller)
 			feedback_add_details("admin_verb","DLighting")
+#endif
 		if("Air")
 			debug_variables(air_master)
 			feedback_add_details("admin_verb","DAir")

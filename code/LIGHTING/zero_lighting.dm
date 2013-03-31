@@ -7,18 +7,18 @@
 	return
 
 /turf/proc/GetLightLevel() 	// used by human/life.dm
-	return 6
-/*
+	/*
 	Unable to calculate actual value.
 	Having 6 instead of 0 because otherwise scarysounds will occurs all the time and plantpeople never gets selfhealed.
 
 	Can also do something like
 	for(atom/A in view()) if (A.luminosity) return A.luminosity;
 	but that will ruin the whole purpose of zero lighting system: to have zero CPU usage
-*/
+	*/
+	return 6
 
 /area
-	var/sd_lighting = 1
+	var/lighting_use_dynamic = 1
 
 /area/New()
 	..()
@@ -42,7 +42,7 @@
 	set category = "Debug"
 	var/turf/epicenter = locate(113, 128, 1) //AI
 	var/start_time
-	message_admins("\blue [ckey] creating an admin explosion at at [coords2text(epicenter)] \[[epicenter.loc]\].")
+	message_admins("\blue [ckey] creating an admin explosion at at ([epicenter.x],[epicenter.y],[epicenter.z]) \[[epicenter.loc]\].")
 	sleep(0)
 	start_time = world.timeofday
 	explosion(epicenter, 3, 7, 14, 15)

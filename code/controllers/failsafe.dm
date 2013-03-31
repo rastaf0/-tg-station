@@ -25,8 +25,9 @@ var/datum/controller/failsafe/Failsafe
 		set background = 1
 		while(1)	//more efficient than recursivly calling ourself over and over. background = 1 ensures we do not trigger an infinite loop
 			if(!master_controller)		new /datum/controller/game_controller()	//replace the missing master_controller! This should never happen.
+			#if LIGHTING == DAL_TG
 			if(!lighting_controller)	new /datum/controller/lighting()		//replace the missing lighting_controller
-
+			#endif
 			if(processing)
 				if(master_controller.processing)	//only poke if these overrides aren't in effect
 					if(MC_iteration == controller_iteration)	//master_controller hasn't finished processing in the defined interval
@@ -44,7 +45,7 @@ var/datum/controller/failsafe/Failsafe
 					else
 						MC_defcon = 0
 						MC_iteration = controller_iteration
-
+				#if LIGHTING == DAL_TG
 				if(lighting_controller.processing)
 					if(lighting_iteration == lighting_controller.iteration)	//master_controller hasn't finished processing in the defined interval
 						switch(lighting_defcon)
@@ -61,8 +62,11 @@ var/datum/controller/failsafe/Failsafe
 					else
 						lighting_defcon = 0
 						lighting_iteration = lighting_controller.iteration
+				#endif
 			else
 				MC_defcon = 0
+				#if LIGHTING == DAL_TG
 				lighting_defcon = 0
+				#endif
 
 			sleep(processing_interval)

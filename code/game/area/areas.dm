@@ -36,8 +36,9 @@
 
 //	spawn(15)
 	power_change()		// all machines set to current power level, also updates lighting icon
+	#if LIGHTING == DAL_TG
 	InitializeLighting()
-
+	#endif
 
 /area/proc/poweralert(var/state, var/obj/source as obj)
 	if (state != poweralm)

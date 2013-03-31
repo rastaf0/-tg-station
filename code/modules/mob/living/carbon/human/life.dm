@@ -737,8 +737,14 @@
 				var/turf/T = loc
 				var/area/A = T.loc
 				if(A)
-					if(A.lighting_use_dynamic)	light_amount = min(10,T.lighting_lumcount) - 5 //hardcapped so it's not abused by having a ton of flashlights
-					else						light_amount =  5
+					if(A.lighting_use_dynamic)
+						#if LIGHTING == DAL_TG
+						light_amount = min(10,T.lighting_lumcount) - 5 //hardcapped so it's not abused by having a ton of flashlights
+						#else
+						light_amount = T.GetLightLevel()
+						#endif
+					else
+						light_amount =  5
 			nutrition += light_amount
 			if(nutrition > 500)
 				nutrition = 500
@@ -752,8 +758,14 @@
 				var/turf/T = loc
 				var/area/A = T.loc
 				if(A)
-					if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
-					else						light_amount =  10
+					if(A.lighting_use_dynamic)
+						#if LIGHTING == DAL_TG
+						light_amount = T.lighting_lumcount
+						#else
+						light_amount = T.GetLightLevel()
+						#endif
+					else
+						light_amount =  10
 			if(light_amount > 2) //if there's enough light, start dying
 				take_overall_damage(1,1)
 			else if (light_amount < 2) //heal in the dark
@@ -1197,7 +1209,11 @@
 		//0.1% chance of playing a scary sound to someone who's in complete darkness
 		if(isturf(loc) && rand(1,1000) == 1)
 			var/turf/currentTurf = loc
+			#if LIGHTING == DAL_TG
 			if(!currentTurf.lighting_lumcount)
+			#else
+			if(currentTurf.GetLightLevel()==0)
+			#endif
 				playsound_local(src,pick(scarySounds),50, 1, -1)
 
 	proc/handle_stomach()
