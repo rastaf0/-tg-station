@@ -545,8 +545,8 @@
 
 	if (!explode)
 		W.opacity = 1
-		W.sd_SetOpacity(0)
-		//This is probably gonna make lighting go a bit wonky in bombed areas, but sd_SetOpacity was the primary reason bombs have been so laggy. --NEO
+		W.SetOpacity(0)
+		//This is probably gonna make lighting go a bit wonky in bombed areas, but SetOpacity was the primary reason bombs have been so laggy. --NEO
 	W.levelupdate()
 	return W
 
@@ -561,7 +561,7 @@
 	if(prior_icon) W.icon_state = prior_icon
 	else W.icon_state = "plating"
 	W.opacity = 1
-	W.sd_SetOpacity(0)
+	W.SetOpacity(0)
 	W.levelupdate()
 	return W
 
@@ -648,7 +648,7 @@
 	var/turf/simulated/wall/S = new /turf/simulated/wall( locate(src.x, src.y, src.z) )
 	S.icon_old = old_icon
 	S.opacity = 0
-	S.sd_NewOpacity(1)
+	S.SetOpacity(1)
 	return S
 
 /turf/proc/ReplaceWithRWall()
@@ -656,7 +656,7 @@
 	var/turf/simulated/wall/r_wall/S = new /turf/simulated/wall/r_wall( locate(src.x, src.y, src.z) )
 	S.icon_old = old_icon
 	S.opacity = 0
-	S.sd_NewOpacity(1)
+	S.SetOpacity(1)
 	return S
 
 /turf/simulated/wall/New()
@@ -1333,19 +1333,19 @@ turf/simulated/floor/proc/update_icon()
 			switch(T.state)
 				if(0)
 					icon_state = "light_on"
-					sd_SetLuminosity(5)
+					SetLuminosity(5)
 				if(1)
 					var/num = pick("1","2","3","4")
 					icon_state = "light_on_flicker[num]"
-					sd_SetLuminosity(5)
+					SetLuminosity(5)
 				if(2)
 					icon_state = "light_on_broken"
-					sd_SetLuminosity(5)
+					SetLuminosity(5)
 				if(3)
 					icon_state = "light_off"
-					sd_SetLuminosity(0)
+					SetLuminosity(0)
 		else
-			sd_SetLuminosity(0)
+			SetLuminosity(0)
 			icon_state = "light_off"
 	if(is_grass_floor())
 		if(!broken && !burnt)
@@ -1488,7 +1488,7 @@ turf/simulated/floor/return_siding_icon_state()
 	if(!floor_tile) return
 	del(floor_tile)
 	icon_plating = "plating"
-	sd_SetLuminosity(0)
+	SetLuminosity(0)
 	floor_tile = null
 	intact = 0
 	broken = 0
@@ -1504,7 +1504,7 @@ turf/simulated/floor/return_siding_icon_state()
 	broken = 0
 	burnt = 0
 	intact = 1
-	sd_SetLuminosity(0)
+	SetLuminosity(0)
 	if(T)
 		if(istype(T,/obj/item/stack/tile/plasteel))
 			floor_tile = T

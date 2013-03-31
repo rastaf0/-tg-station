@@ -109,7 +109,7 @@
 
 	explosion_resistance = 0
 	src.density = 0
-//	src.sd_SetOpacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
+//	src.SetOpacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
 	update_nearby_tiles()
 
 	if(operating == 1) //emag again
