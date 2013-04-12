@@ -266,3 +266,6 @@ proc/tg_list2text(list/list, glue=",")
 		if("Retro")		return 'icons/mob/screen_retro.dmi'
 		if("Plasmafire")	return 'icons/mob/screen_plasmafire.dmi'
 		else			return 'icons/mob/screen_midnight.dmi'
+
+
+#define coords2text(someAtom) "([someAtom.x],[someAtom.y],[someAtom.z])"

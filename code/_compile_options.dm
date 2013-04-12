@@ -11,7 +11,7 @@
  * LE_ZERO_LIGHT
  * LE_FaELS
  */
- #define LIGHTING_ENGINE LE_ZERO_LIGHT
+ #define LIGHTING_ENGINE LE_FaELS
 
 
 //SYSTEM TOGGLES - these allow you to compile the game without some of the laggier systems if your server cannot cope with demand

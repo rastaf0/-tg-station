@@ -186,7 +186,8 @@
 
 #define FaELS_DEBUG //comment out to make release
 
-#define FaELS_NUMBERS_FILE 'ss13_dark_alpha7.dmi'  /* an icon must have states named "0", "1", "2" and so on */
+#define FaELS_NUMBERS_FILE 'icons/misc/digits.dmi'  /* an icon must have states named "0", "1", "2" and so on */
+#define FaELS_NOTHING_FILE 'icons/effects/effects.dmi'  /* an icon must have states named "0", "1", "2" and so on */
 #define FaELS_DELAY 0 //delay before lighting changes will be visible. Events caused by movement are always instant.
 #define FaELS_COLOR
 
@@ -209,7 +210,7 @@
 	#ifdef FaELS_COLOR
 		#define FaELS_HUE_ROUNDING 64 //less means smoother image and more icons in memory
 	#endif
-	#define FaELS_LOGBASE 2.7 //how litness is combined. Eiler's number appears to be best value here.
+	#define FaELS_LOGBASE 2.7 //how litness is combined. Eiler's number appears to be the best value here. TODO: get rid out of this constant.
 #else
 	#ifdef FaELS_COLOR
 /*    */var/FaELS_HUE_ROUNDING = 64
@@ -316,14 +317,14 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	#ifdef FaELS_DEBUG
 	var/list/icon/digits = new
 	for (var/i=0,i<10,i++)
-		digits += icon(FaELS_NUMBERS_FILE,icon_state="l[i]")
+		digits += icon(FaELS_NUMBERS_FILE,icon_state=num2text(i))
 
 	for (var/ix=0,ix<10,ix++)
 		for (var/xj=0,xj<10,xj++)
 			if (ix==0)
 				numbers += digits[xj+1]
 			else
-				var/icon/I = icon('effects.dmi', "nothing")
+				var/icon/I = icon(FaELS_NOTHING_FILE, "nothing")
 				I.Blend(digits[ix+1],ICON_OVERLAY, -6)
 				I.Blend(digits[xj+1],ICON_OVERLAY, 6)
 				numbers += I
@@ -675,8 +676,8 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 			locate(min(CENTER.x+(RADIUS),world.maxx),	min(CENTER.y+(RADIUS),world.maxy),	CENTER.z) \
 			)
 
-#define DIST_EUCLIDIAN(Loc1, Loc2) (sqrt((Loc1.x - Loc2.x)**2 + (Loc1.y - Loc2.y)**2))
-//TODO: DIST_EUCLIDIAN_SQR
+#define HYPOTENUSE(Loc1, Loc2) (sqrt((Loc1.x - Loc2.x)**2 + (Loc1.y - Loc2.y)**2))
+//TODO: HYPOTENUSE_SQR
 
 /* MAIN UNIVERSAL FUNCTION */
 /datum/FaELS/proc/update_light(var/atom/source, var/new_luminosity, var/old_luminosity, var/turf/old_center = null)
@@ -702,7 +703,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 			world << "DEBUG: FaELS: update_light([source] at [coords2text(center)] \[[center.loc]\], [new_luminosity], [old_luminosity], [old_center] at [coords2text(old_center)] \[[old_center.loc]\]): new_view=[new_view_len], old_range=[old_range_old_len] -> [old_range.len]"
 	#endif
 	for (var/turf/T in old_range)
-		if (round(DIST_EUCLIDIAN(old_center, T)) >= old_luminosity)
+		if (round(HYPOTENUSE(old_center, T)) >= old_luminosity)
 			continue
 		if (!T.faels_lights)
 			continue
@@ -714,7 +715,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 				turfs_to_update += T
 
 	for (var/turf/T in new_view)
-		var/d = round(DIST_EUCLIDIAN(center, T))
+		var/d = round(HYPOTENUSE(center, T))
 		if (d < new_luminosity)
 			if (!T.faels_lights)
 				T.faels_lights = new
@@ -749,7 +750,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 		world << "DEBUG: FaELS: handle_opacity_set([source] at [coords2text(center)] \[[center.loc]\]): source.faels_luminosity=[source.faels_luminosity], new_view=[new_view.len], old_range=[old_range_old_len] -> [old_range.len]"
 	#endif
 	for (var/turf/T in old_range)
-		if (round(DIST_EUCLIDIAN(center, T)) >= source.faels_luminosity)
+		if (round(HYPOTENUSE(center, T)) >= source.faels_luminosity)
 			continue
 		if (!T.faels_lights)
 			continue
@@ -772,7 +773,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 		world << "DEBUG: FaELS: handle_opacity_clear([source] at [coords2text(center)] \[[center.loc]\]): source.faels_luminosity=[source.faels_luminosity]"
 	#endif
 	for (var/turf/T in view(source.faels_luminosity-1, center))
-		var/d = round(DIST_EUCLIDIAN(center, T))
+		var/d = round(HYPOTENUSE(center, T))
 		if (d>=source.faels_luminosity)
 			continue
 		if (!T.faels_lights)
@@ -800,7 +801,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	//var/tmp_lum = center.luminosity //save
 	//center.luminosity = new_luminosity //for correct work of view() //already done by caller
 	for (var/turf/T in view(new_luminosity-1, center))
-		var/d = round(DIST_EUCLIDIAN(center, T))
+		var/d = round(HYPOTENUSE(center, T))
 		if (d>=new_luminosity)
 			continue
 		if (!T.faels_lights)
@@ -837,7 +838,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 			world << "DEBUG: FaELS: strip_light([source] disappeared from [coords2text(center)] \[[center.loc]\], [old_luminosity])"
 	#endif
 	for (var/turf/T in RANGE_TURFS(old_luminosity-1, center))
-		var/d = round(DIST_EUCLIDIAN(center, T))
+		var/d = round(HYPOTENUSE(center, T))
 		if (d>=old_luminosity)
 			continue
 		if (!T.faels_lights)
@@ -857,7 +858,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 		world << "DEBUG: FaELS: delete_light(something at [coords2text(center)] \[[center.loc]\], [old_luminosity])"
 	#endif
 	for (var/turf/T in RANGE_TURFS(old_luminosity-1, center))
-		var/d = round(DIST_EUCLIDIAN(center, T))
+		var/d = round(HYPOTENUSE(center, T))
 		if (d>=old_luminosity)
 			continue
 		if (!T.faels_lights)
@@ -876,7 +877,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 /datum/FaELS/proc/get_icon(faels_color)
 	var/icon/alphaoverlay = icons[faels_color]
 	if (!alphaoverlay)
-		alphaoverlay = icon('effects.dmi', "nothing")
+		alphaoverlay = icon(FaELS_NOTHING_FILE, "nothing")
 		alphaoverlay.Blend(faels_color,ICON_OVERLAY)
 		icons[faels_color] = alphaoverlay
 	return alphaoverlay
@@ -886,7 +887,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
  */
 /area/New(loc, faels_color, area/faels_template_area, newtag)
 	..()
-	if (sd_lighting && faels_color)
+	if (lighting_use_dynamic && faels_color)
 		ASSERT(istype(FaELS))
 		//faels_created = 1  //not needed
 
@@ -912,7 +913,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	//There is an issue in byond: sometimes lit (but not lumenous) turfs are not shown for player.
 	//Here's the workaround: set not completely dark turfs as lumenous.
 	//Also, special areas are always lit magically.
-	luminosity = (sd_lighting && faels_color != "#000000e0") || !requires_power
+	luminosity = (lighting_use_dynamic && faels_color != "#000000e0") || !requires_power
 	return
 
 /area/Del()
@@ -1328,7 +1329,7 @@ var/k_shine_a_la = 0.5
 /turf/proc/faels_apply_overlay()
 	var/area/Loc = loc
 	FaELS_ASSERT(isarea(Loc))
-	if (!Loc.sd_lighting)
+	if (!Loc.lighting_use_dynamic)
 		return
 	var/color = faels_get_color()
 	if (!color)
@@ -1745,7 +1746,7 @@ turf_data_storage: [turf_data_storage.len]
 
 #undef FaELS_UPDATE
 #undef RANGE_TURFS
-#undef DIST_EUCLIDIAN
+#undef HYPOTENUSE
 
 #undef FaELS_LX2METERS
 #undef FaELS_METERS2LX
