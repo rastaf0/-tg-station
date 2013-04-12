@@ -398,14 +398,14 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 			continue
 		var/flags = I.faels_flags & (FaELS_OP_SET_LUM|FaELS_OP_OPACITY_SET|FaELS_OP_OPACITY_CLR)
 
-		if      (flags == FaELS_OP_SET_LUM && I.faels_luminosity == 0 && (isnull(I.faels_pending_luminosity) || I.faels_pending_luminosity == 0))
+		if      (flags == FaELS_OP_SET_LUM && !(I.faels_luminosity) && (isnull(I.faels_pending_luminosity) || I.faels_pending_luminosity == 0))
 			//do nothing
 			#ifdef FaELS_DEBUG
 			var/turf/center = get_turf(I)
 			world << "DEBUG: FaELS: do_update: doing nothing with [I] at [coords2text(center)] \[[center?(center.loc):""]\]"
 			#endif
 			I.faels_pending_luminosity = null
-		else if (flags & FaELS_OP_SET_LUM && I.faels_luminosity == 0 && I.faels_pending_luminosity >  0)
+		else if (flags & FaELS_OP_SET_LUM && !(I.faels_luminosity) && I.faels_pending_luminosity >  0)
 			 //lamp has been turned on
 			I.luminosity = I.faels_pending_luminosity
 			I.faels_luminosity = I.faels_pending_luminosity
@@ -450,11 +450,16 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	turfs_to_update.len = 0
 
 	#ifdef FaELS_DEBUG
-	world << "DEBUG: FaELS: [op_setlum] lights, [op_setgraph] turfs."
+	world << "DEBUG: FaELS: Update finished: [op_setlum] lights, [op_setgraph] turfs."
 	#endif
 	return 1
 
 /datum/FaELS/proc/set_luminosity(var/atom/A, var/new_luminosity as num)
+	#ifdef FaELS_DEBUG
+	if (FaELS_SMALL_MAP || !force_delay_updates)
+		var/turf/center = get_turf(A)
+		world << "DEBUG: FaELS: FaELS/set_luminosity([A] at [coords2text(center)] \[[center?(center.loc):""]\], [new_luminosity]); faels_luminosity=[A.faels_luminosity], faels_pending_luminosity=[A.faels_pending_luminosity]"
+	#endif
 	new_luminosity = max(min(new_luminosity, FaELS_MAX_LUMINOSITY),0) //Clamp
 	if (!(A.faels_flags & FaELS_SHEDULED_LIGHT)) // if NOT sheduled
 		if (A.faels_luminosity == new_luminosity) //nothing to do
@@ -466,22 +471,17 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 		if (A.faels_pending_luminosity == new_luminosity) //nothing to do
 			return
 		A.faels_flags |= FaELS_OP_SET_LUM
-	#ifdef FaELS_DEBUG
-	if (FaELS_SMALL_MAP || !force_delay_updates)
-		var/turf/center = get_turf(A)
-		world << "DEBUG: FaELS: FaELS/set_luminosity([A] at [coords2text(center)] \[[center?(center.loc):""]\], [new_luminosity]); faels_luminosity=[A.faels_luminosity], faels_pending_luminosity=[A.faels_pending_luminosity]"
-	#endif
 	A.faels_pending_luminosity = new_luminosity
 	return
 
 /datum/FaELS/proc/set_opacity(var/atom/A, var/new_opacity as num)
-	if (A.opacity == new_opacity)
-		return
 	#ifdef FaELS_DEBUG
 	if (FaELS_SMALL_MAP || !force_delay_updates)
 		var/turf/center = get_turf(A)
 		world << "DEBUG: FaELS: FaELS/set_opacity([A] at [coords2text(center)] \[[center?(center.loc):""]\], [new_opacity]); old_opacity=[A.opacity]"
 	#endif
+	if (A.opacity == new_opacity)
+		return
 	A.opacity = new_opacity
 	var/turf/T = FaELS_get_turf(A)
 	if(T && T.faels_lights && T.faels_lights.len)
@@ -499,17 +499,15 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 
 /datum/FaELS/proc/on_Del(atom/A)
 	var/turf/T = FaELS_get_turf(A)
+	#ifdef FaELS_DEBUG
+	if ((A.faels_luminosity || (A.opacity && T.faels_lights && T.faels_lights.len) ) && (FaELS_SMALL_MAP || !force_delay_updates))
+		world << "DEBUG: FaELS: on_Del([A] at [coords2text(T)] \[[T.loc]\]); opacity=[A.opacity],  faels_luminosity=[A.faels_luminosity]"
+	#endif
 	if (!T)
 		return
-	#ifdef FaELS_DEBUG
-	var/needs_to_trace = 0
-	#endif
 	if (A.faels_luminosity)
 		delete_light(T, A.faels_luminosity)
 		FaELS_UPDATE
-		#ifdef FaELS_DEBUG
-		needs_to_trace = 1
-		#endif
 	if (A.opacity)
 		if(T.faels_lights && T.faels_lights.len)
 			for (var/atom/L in T.faels_lights)
@@ -519,19 +517,18 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 				else
 					L.faels_flags |= FaELS_OP_OPACITY_CLR
 			FaELS_UPDATE
-			#ifdef FaELS_DEBUG
-			needs_to_trace = 1
-			#endif
 
-	#ifdef FaELS_DEBUG
-	if (needs_to_trace && (FaELS_SMALL_MAP || !force_delay_updates))
-		world << "DEBUG: FaELS: on_Del([A] at [coords2text(T)] \[[T.loc]\]); opacity=[A.opacity],  faels_luminosity=[A.faels_luminosity]"
-	#endif
 	return
 
 
 /datum/FaELS/proc/on_Move(var/atom/movable/A, var/turf/old_T)
 	var/turf/T = FaELS_get_turf(A)
+	#ifdef FaELS_DEBUG
+	if ((FaELS_SMALL_MAP || !force_delay_updates))
+		var/text_from = isturf(old_T) ? "[coords2text(old_T)] \[[old_T.loc]\]" : "[old_T]"
+		var/text_to = isturf(T) ? "[coords2text(T)] \[[T.loc]\]" : "[T]"
+		world << "DEBUG: FaELS: on_Move([A] moved from [text_from] to [text_to]); opacity=[A.opacity],  faels_luminosity=[A.faels_luminosity]"
+	#endif
 	if (A.faels_luminosity)
 		if      (T==old_T) //can happen when a person gets a flashlight from backpack to hands while sitting in a locker
 			//do nothing
@@ -571,16 +568,14 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 						else
 							L.faels_flags |= FaELS_OP_OPACITY_CLR
 					FaELS_UPDATE
-	#ifdef FaELS_DEBUG
-	if ((FaELS_SMALL_MAP || !force_delay_updates))
-		var/text_from = isturf(old_T) ? "[coords2text(old_T)] \[[old_T.loc]\]" : "[old_T]"
-		var/text_to = isturf(T) ? "[coords2text(T)] \[[T.loc]\]" : "[T]"
-		world << "DEBUG: FaELS: on_Move([A] moved from [text_from] to [text_to]); opacity=[A.opacity],  faels_luminosity=[A.faels_luminosity]"
-	#endif
 	return
 
 
 /datum/FaELS/proc/on_New_turf(turf/T)
+	#ifdef FaELS_DEBUG
+	if ((FaELS_SMALL_MAP || !force_delay_updates))
+		world << "DEBUG: FaELS: on_New_turf([T] at [coords2text(T)] \[[T.loc]\]); opacity=[T.opacity],  faels_luminosity=[T.faels_luminosity]"
+	#endif
 	T.faels_flags |= FaELS_SHEDULED_TURF
 	turfs_to_update += T
 	FaELS_UPDATE
@@ -599,26 +594,19 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	if (T.luminosity)
 		FaELS.set_luminosity(T, T.luminosity)
 
-	#ifdef FaELS_DEBUG
-	if ((FaELS_SMALL_MAP || !force_delay_updates))
-		world << "DEBUG: FaELS: on_New_turf([T] at [coords2text(T)] \[[T.loc]\]); opacity=[T.opacity],  faels_luminosity=[T.faels_luminosity]"
-	#endif
 	return
 
 
 /datum/FaELS/proc/on_New_area(area/A)
 	#ifdef FaELS_DEBUG
-	var/turf/tmp_turf = locate() in A
-	var/has_work_done = !isnull(tmp_turf)
+	var/turf/tmp_turf = locate() in A //any turf
+	if (!isnull(tmp_turf))
+		world << "DEBUG: FaELS: on_New_area([A])"
 	#endif
 	for (var/turf/T in A)
 		T.faels_flags |= FaELS_SHEDULED_TURF
 		turfs_to_update += T
 	FaELS_UPDATE
-	#ifdef FaELS_DEBUG
-	if (has_work_done)
-		world << "DEBUG: FaELS: on_New_area([A])"
-	#endif
 
 /datum/FaELS/proc/on_New_movable(atom/movable/A)
 	if (A.opacity)
@@ -1723,6 +1711,7 @@ turf_data_storage: [turf_data_storage.len]
 #undef FaELS_DEBUG
 
 #undef FaELS_NUMBERS_FILE
+#undef FaELS_NOTHING_FILE
 #undef FaELS_DELAY
 #undef FaELS_COLOR
 
