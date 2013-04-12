@@ -41,7 +41,7 @@
 	"Master",
 	"Failsafe",
 	"Ticker",
-#if LIGHTING_ENGINE != LE_ZERO_LIGHT
+#if LIGHTING_ENGINE == LE_DAL_TG || LIGHTING_ENGINE == LE_FaELS
 	"Lighting",
 #endif
 	"Air",
@@ -69,10 +69,18 @@
 		if("Ticker")
 			debug_variables(ticker)
 			feedback_add_details("admin_verb","DTicker")
-#if LIGHTING_ENGINE != LE_ZERO_LIGHT
+#if LIGHTING_ENGINE == LE_DAL_TG
 		if("Lighting")
 			debug_variables(lighting_controller)
 			feedback_add_details("admin_verb","DLighting")
+#elif LIGHTING_ENGINE == LE_FaELS
+		if("Lighting")
+			debug_variables(FaELS)
+			feedback_add_details("admin_verb","DLighting")
+#elif LIGHTING_ENGINE == LE_ZERO_LIGHT
+			//nothing to show
+#else
+			#error Unknown LIGHTING_ENGINE!
 #endif
 		if("Air")
 			debug_variables(air_master)

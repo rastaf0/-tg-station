@@ -39,9 +39,11 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 		playsound(epicenter, "explosion", 100, 1, round(devastation_range,1) )
 
 
-#if LIGHTING_ENGINE != LE_ZERO_LIGHT //todo: do smth for faels
+#if LIGHTING_ENGINE == LE_DAL_TG
 		var/lighting_controller_was_processing = lighting_controller.processing	//Pause the lighting updates for a bit
 		lighting_controller.processing = 0
+#elif LIGHTING_ENGINE == LE_FaELS
+		FaELS.force_delay_updates = 1
 #endif
 		var/powernet_rebuild_was_deferred_already = defer_powernet_rebuild
 		if(defer_powernet_rebuild != 2)
@@ -82,8 +84,11 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 
 		sleep(8)
 
-#if LIGHTING_ENGINE != LE_ZERO_LIGHT
+#if LIGHTING_ENGINE == LE_DAL_TG
 		if(!lighting_controller.processing)	lighting_controller.processing = lighting_controller_was_processing
+#elif LIGHTING_ENGINE == LE_FaELS
+		FaELS.force_delay_updates = 0
+		FaELS.do_update()
 #endif
 		if(!powernet_rebuild_was_deferred_already)
 			if(defer_powernet_rebuild != 2)

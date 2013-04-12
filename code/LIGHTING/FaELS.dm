@@ -402,7 +402,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 			//do nothing
 			#ifdef FaELS_DEBUG
 			var/turf/center = get_turf(I)
-			world << "DEBUG: FaELS: do_update: doing nothing with [I] at [coords2text(center)] \[[center.loc]\]"
+			world << "DEBUG: FaELS: do_update: doing nothing with [I] at [coords2text(center)] \[[center?(center.loc):""]\]"
 			#endif
 			I.faels_pending_luminosity = null
 		else if (flags & FaELS_OP_SET_LUM && I.faels_luminosity == 0 && I.faels_pending_luminosity >  0)
@@ -455,7 +455,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	return 1
 
 /datum/FaELS/proc/set_luminosity(var/atom/A, var/new_luminosity as num)
-	new_luminosity = min(new_luminosity, FaELS_MAX_LUMINOSITY)
+	new_luminosity = max(min(new_luminosity, FaELS_MAX_LUMINOSITY),0) //Clamp
 	if (!(A.faels_flags & FaELS_SHEDULED_LIGHT)) // if NOT sheduled
 		if (A.faels_luminosity == new_luminosity) //nothing to do
 			return
@@ -469,7 +469,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	#ifdef FaELS_DEBUG
 	if (FaELS_SMALL_MAP || !force_delay_updates)
 		var/turf/center = get_turf(A)
-		world << "DEBUG: FaELS: FaELS/set_luminosity([A] at [coords2text(center)] \[[center.loc]\], [new_luminosity]); faels_luminosity=[A.faels_luminosity], faels_pending_luminosity=[A.faels_pending_luminosity]"
+		world << "DEBUG: FaELS: FaELS/set_luminosity([A] at [coords2text(center)] \[[center?(center.loc):""]\], [new_luminosity]); faels_luminosity=[A.faels_luminosity], faels_pending_luminosity=[A.faels_pending_luminosity]"
 	#endif
 	A.faels_pending_luminosity = new_luminosity
 	return
@@ -480,7 +480,7 @@ TODO: make dmi file with all stages - that may help alot with traffic.
 	#ifdef FaELS_DEBUG
 	if (FaELS_SMALL_MAP || !force_delay_updates)
 		var/turf/center = get_turf(A)
-		world << "DEBUG: FaELS: FaELS/set_opacity([A] at [coords2text(center)] \[[center.loc]\], [new_opacity]); old_opacity=[A.opacity]"
+		world << "DEBUG: FaELS: FaELS/set_opacity([A] at [coords2text(center)] \[[center?(center.loc):""]\], [new_opacity]); old_opacity=[A.opacity]"
 	#endif
 	A.opacity = new_opacity
 	var/turf/T = FaELS_get_turf(A)
@@ -1568,7 +1568,7 @@ turf_data_storage: [turf_data_storage.len]
 	brightness_on = 7
 	luminosity = 7
 	faels_hue = null
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 #ifdef FaELS_COLOR
@@ -1578,7 +1578,7 @@ turf_data_storage: [turf_data_storage.len]
 	brightness_on = 7
 	luminosity = 7
 	faels_hue = 0
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 /obj/item/device/flashlight/yellow
@@ -1586,7 +1586,7 @@ turf_data_storage: [turf_data_storage.len]
 	brightness_on = 7
 	luminosity = 7
 	faels_hue = 0x100
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 /obj/item/device/flashlight/green
@@ -1594,7 +1594,7 @@ turf_data_storage: [turf_data_storage.len]
 	brightness_on = 7
 	luminosity = 7
 	faels_hue = 0x200
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 /obj/item/device/flashlight/cyan
@@ -1602,7 +1602,7 @@ turf_data_storage: [turf_data_storage.len]
 	brightness_on = 7
 	luminosity = 7
 	faels_hue = 0x300
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 /obj/item/device/flashlight/blue
@@ -1610,7 +1610,7 @@ turf_data_storage: [turf_data_storage.len]
 	brightness_on = 7
 	luminosity = 7
 	faels_hue = 0x400
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 /obj/item/device/flashlight/magenta
@@ -1618,7 +1618,7 @@ turf_data_storage: [turf_data_storage.len]
 	brightness_on = 7
 	luminosity = 7
 	faels_hue = 0x500
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 //=====
 
@@ -1665,7 +1665,7 @@ turf_data_storage: [turf_data_storage.len]
 	name = "big flashlight"
 	brightness_on = 10 //luminosity when on
 	luminosity = 10
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 /obj/item/device/flashlight/uber
@@ -1673,7 +1673,7 @@ turf_data_storage: [turf_data_storage.len]
 	desc = "hergestellt in Uberwald"
 	brightness_on = FaELS_MAX_LUMINOSITY
 	luminosity = FaELS_MAX_LUMINOSITY
-	icon_state = "flight1"
+	icon_state = "flashlight-on"
 	on = 1
 
 #ifdef FaELS_DEBUG

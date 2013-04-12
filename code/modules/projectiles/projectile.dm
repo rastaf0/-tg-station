@@ -51,6 +51,10 @@
 
 
 	proc/delete()
+		#if LIGHTING_ENGINE == LE_FaELS
+		if(faels_luminosity)
+			del(src) //fuck garbage collecting
+		#endif
 		// Garbage collect the projectiles
 		loc = null
 

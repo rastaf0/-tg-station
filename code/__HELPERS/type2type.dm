@@ -267,5 +267,5 @@ proc/tg_list2text(list/list, glue=",")
 		if("Plasmafire")	return 'icons/mob/screen_plasmafire.dmi'
 		else			return 'icons/mob/screen_midnight.dmi'
 
-
-#define coords2text(someAtom) "([someAtom.x],[someAtom.y],[someAtom.z])"
+//NOTE: areas do not have x,y,z coordinates but are isloc(). Do not apply this macro to an area.
+#define coords2text(someAtom) (isloc(someAtom)?"([someAtom.x],[someAtom.y],[someAtom.z])":"(loc=null)")
